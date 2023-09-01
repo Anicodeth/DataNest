@@ -40,9 +40,5 @@ async function filteredInformation(query){
 
     }
 
-    
 
-
-filteredInformation("weather").then((response)=>{
-    console.log(response)
-})
+module.exports = { filteredInformation } ;
