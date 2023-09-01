@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@google-ai/generativelanguage": "^1.0.0",
+    "google-auth-library": "^9.0.0",
     "newsapi": "^2.4.1"
   }
 }
