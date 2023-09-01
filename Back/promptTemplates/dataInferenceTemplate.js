@@ -5,6 +5,8 @@ const scrapedDataInferenceTemplate = (currentData)=>{
     "${currentData}".
 
     Return a summary of the data and also additional information.
+    Write it as a packed article for a news blog.
+    Do not include the article number.
     `
 }
 
@@ -19,3 +21,5 @@ const knowledgeInferenceTemplate = (currentData, knowledge, prompt)=>{
     Answer the following question: "${prompt}"
     `
 }
+
+module.exports = { scrapedDataInferenceTemplate, knowledgeInferenceTemplate }

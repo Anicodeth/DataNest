@@ -1,6 +1,8 @@
 const newsApiRepo = require('../data/newsApiRepository')
 const palmApiRepo = require('../data/palmApiRepository')
-const dataNestHelper = require('../helpers/dataNestHelper')
+const dataNestHelper = require('../helpers/dataNestHelpers')
+const promptTemplates = require('../promptTemplates/dataInferenceTemplate')
+
 //template for main processes
 // newsApiRepo.getTopHeadlines().then((response)=>{
 //     console.log(response)
@@ -23,11 +25,24 @@ async function filteredInformation(query){
         }
     });
 
-    const currentDataPrompt = dataNestHelper.currentData(20000, filteredData);
+    const currentDataPrompt = dataNestHelper.currentData(3000, filteredData);
+
+    const prompt = promptTemplates.scrapedDataInferenceTemplate(currentDataPrompt);
+
+    const summary = await palmApiRepo.generateText(prompt);
+    try{
+        const paragraph = summary[0].candidates[0].output;
+        return  paragraph;
+
+    }catch(err){
+        return "No Information due to " + summary[0].filters[0].reason + " Protocol ";   
+    }    
 
     }
 
     
 
 
-filteredInformation("chickens")
+filteredInformation("weather").then((response)=>{
+    console.log(response)
+})
