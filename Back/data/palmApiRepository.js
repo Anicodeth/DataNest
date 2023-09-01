@@ -28,4 +28,4 @@ function generateText(promptString, stopSequences = []) {
   }
 
 
-module.exports = generateText;
+module.exports = { generateText };
