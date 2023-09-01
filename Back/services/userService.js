@@ -1,5 +1,5 @@
 const User = require("../models/user");
-
+const jwt = require('jsonwebtoken');
  async function getUser(userId) {
       try {
         return await User.findById(userId);
@@ -12,12 +12,12 @@ const User = require("../models/user");
 async function createUser(username, email, password) {
     let existingUser = await User.findOne({ username });
       if (existingUser) {
-        throw new BadRequestError('Another user exists with the same username.');
+        throw { error: 'Another user exists with the same username.'};
       }
   
       existingUser = await User.findOne({ email });
       if (existingUser) {
-        throw new BadRequestError('Another user exists with the same email.');
+        throw {error: 'Another user exists with the same email.'};
       }
     
       const user = new User({ username, email, password });
@@ -29,7 +29,6 @@ async function createUser(username, email, password) {
   async function loginUser(username, password){
     try {
      const user = await User.findOne({ username });
-  
       if (!user) {
         throw {error: 'User does not exist.'};
       }
@@ -41,7 +40,7 @@ async function createUser(username, email, password) {
       const token = jwt.sign({ userId: user._id }, 'Ananya');
       return { user, token };
     } catch (error) {
-        return {error: 'Internal server error.'};
+         return {error: 'Internal server error.'};
         }
   };
 module.exports = {  getUser,

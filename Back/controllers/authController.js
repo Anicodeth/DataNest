@@ -1,7 +1,11 @@
+const auth = require('../services/userService');
+
 async function signUp(req, res) {
+    
     try {
       const { username, email, password } = req.body;
-      const newUser = await createUser(username, email, password);
+      const newUser = await auth.createUser(username, email, password);
+
       return res.status(201).json(newUser);
     } catch (error) {
       if (error.name === 'BadRequestError') {
@@ -13,10 +17,10 @@ async function signUp(req, res) {
 
 
   async function login(req, res) {
+    
     try {
       const { username, password } = req.body;
-      const loginResult = await loginUser(username, password);
-      
+      const loginResult = await auth.loginUser(username, password);
       if (loginResult.error) {
         return res.status(401).json({ error: loginResult.error });
       }

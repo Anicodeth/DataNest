@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
   },
   knowledge: [
     {
-        type: string
+        type: String
     }
   ],
 });
