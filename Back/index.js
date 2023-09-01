@@ -40,10 +40,12 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Route imports  
 const dataNestRoutes = require("./routes/dataNestRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Route definitions
 VERSION = "v1";
-app.use(`/api/${VERSION}/dataNestRoutes`, dataNestRoutes.router);
+app.use(`/api/${VERSION}/dataNest`, dataNestRoutes.router);
+app.use(`/api/${VERSION}/user`, userRoutes.router);
 
 
 
