@@ -18,7 +18,7 @@ export const getUserFromLocalStorage = () => {
 };
 
 export const gettokenfromlocalstorage = () => {
-    return localstorage.getitem('authtoken');
+    return localStorage.getitem('authtoken');
 };
 
 export const register = async  (credentials) => {
