@@ -25,6 +25,13 @@ app.use(
 
 
 
+
+
+// Route imports  
+const dataNestRoutes = require("./routes/dataNestRoutes");
+const userRoutes = require("./routes/userRoutes");
+const knowledgeRoutes = require("./routes/knowledgeRoutes");
+
 const swaggerSpec = swaggerJsdoc({
   definition: {
     openapi: '3.0.0',
@@ -37,12 +44,6 @@ const swaggerSpec = swaggerJsdoc({
   apis: ['./routes/*.js'], // Specify the file(s) where JSDoc annotations are present
 });
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-
-// Route imports  
-const dataNestRoutes = require("./routes/dataNestRoutes");
-const userRoutes = require("./routes/userRoutes");
-const knowledgeRoutes = require("./routes/knowledgeRoutes");
 
 
 // Route definitions
@@ -58,3 +59,4 @@ app.listen(process.env.PORT || 4000, () => {
 });
 
 module.exports = app;
+

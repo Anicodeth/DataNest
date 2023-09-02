@@ -15,6 +15,23 @@ router.get('/getall', knowledgeController.getAllKnowledge);
 // Delete Knowledge
 router.delete('/delete/:knowledgeId', knowledgeController.deleteKnowledge);
 
+/**
+ * @swagger
+ * /filterInformation/{query}:
+ *   get:
+ *     description: Retrieve filtered information.
+ *     parameters:
+ *       - in: path
+ *         name: query
+ *         required: true
+ *         description: The query parameter.
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Successful response
+ */
+
 // Update Knowledge
 router.put('/update/:knowledgeId', knowledgeController.updateKnowledge);
 

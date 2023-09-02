@@ -6,7 +6,7 @@ async function signUp(req, res) {
       const { username, email, password } = req.body;
       const newUser = await auth.createUser(username, email, password);
 
-      return res.status(201).json(newUser);
+      return res.status(201).json({ newUser });
     } catch (error) {
       if (error.name === 'BadRequestError') {
         return res.status(400).json({ error: error.message });
