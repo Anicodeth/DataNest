@@ -1,6 +1,6 @@
 import React from 'react';
 import astronaut_running from '../../../assets/astronaut_running.mp4';
-
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -20,6 +20,7 @@ const schema = z.object({
 const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: zodResolver(schema) });
   const { isLoading, isSuccess, error, signIn } = useSignIn();
+  const history = useNavigate();
 
   const handleSignin = (data) => {
     signIn(data);
@@ -27,6 +28,7 @@ const SignIn = () => {
 
   if (isSuccess) {
     // route to the main page
+    history('/chat');
   }
 
   return <AuthenticationPage illustration={astronaut_running} pageTitle={'signin'}>
@@ -59,7 +61,9 @@ const SignIn = () => {
       </form>
       <div>
         <p className="text-md text-violet-600">
-          Don't have an account? <a href='#' className='font-bold hover:underline'>Sign Up!</a>
+          Don't have an account? <a onClick={()=>{
+            history('/sign_up');
+        }}  className='font-bold hover:underline cursor-pointer'>Sign Up!</a>
         </p>
       </div>
     </>

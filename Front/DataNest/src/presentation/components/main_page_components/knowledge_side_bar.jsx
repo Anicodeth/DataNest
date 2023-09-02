@@ -8,7 +8,7 @@ export default function KnowledgeSideBar(props){
                 <h1>Knowledge</h1>
             </div>
             {props.knowledgeList.map((knowledge)=>{
-                return <KnowledgeBox title={knowledge.title} content={knowledge.content}/>;
+                return <KnowledgeBox newKnowledge={knowledge.newKnowledge}/>;
             })}
         </div>
     );

@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 
 import useSignUp from '../../../services/hooks/useSignUp';
 import useSignIn from '../../../services/hooks/useSignIn';
+import { useNavigate } from 'react-router-dom';
 
 import AuthenticationPage from '../../components/authentication/authentication_page';
 import InputField from '../../components/authentication/input_form';
@@ -25,6 +26,7 @@ const SignUp = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({ resolver: zodResolver(schema) });
   const { user, isLoading, isSuccess, error, signUp } = useSignUp();
   const { isLoading: signInLoading, isSuccess: signInIsSuccess, error: signInError, signIn } = useSignIn();
+  const history = useNavigate();
 
   const handleSignup = (data) => {
     signUp(data);
@@ -36,6 +38,7 @@ const SignUp = () => {
   }
 
   if (signInIsSuccess) {
+    history('/chat');
     // route to the user page
   }
 
@@ -80,7 +83,9 @@ const SignUp = () => {
         </form>
         <div>
           <p className="text-md text-violet-600">
-            Already have an account? <a href='#' className='font-bold hover:underline'>Sign In!</a>
+            Already have an account? <a onClick={()=>{
+                history('/sign_in');
+          }} className='font-bold hover:underline cursor-pointer'>Sign In!</a>
           </p>
         </div>
       </>

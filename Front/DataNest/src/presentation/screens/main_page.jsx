@@ -5,28 +5,50 @@ import PromptMessage from "../components/main_page_components/chat_message";
 import ChatMessages from "../components/main_page_components/messages_history";
 import {unmountComponentAtNode} from "react-dom";
 import Popup from "../components/main_page_components/popup_box";
+import useUser from "../../services/hooks/useUser";
+import knowledgeService, {getKnowledgeBasedInformation} from "../../services/dataNestService";
 
 export default function MainPage(){
     const [isCondensed, setIsCondensed] = React.useState(true);
-    const [condensedMessages, setCondensedMessages ] = React.useState([{"message":"Should I invest in bitcoin?","isUser":true},{"message":"You should not.","isUser":false}]);
-    const [realTimeMessages, setRealTimeMessages ] = React.useState([{"message":"Should I get a girlfriend? Use your knowledge.","isUser":true},{"message":"You should not.","isUser":false}]);
+    const [condensedMessages, setCondensedMessages ] = React.useState([]);
+    const [realTimeMessages, setRealTimeMessages ] = React.useState([]);
     const inputMessageRef = useRef(null);
+    const [userInfo, setUserInfo] = React.useState(null);
 
+    const user = useUser();
     const addMessage = (message)=>{
-        if(isCondensed){
-            setCondensedMessages(messages=> [...condensedMessages,message]);
+        if(!isCondensed){
+            setRealTimeMessages(messages=> [...realTimeMessages,message]);
+            const knowledgeService = require("../../services/dataNestService");
+            knowledgeService.getKnowledgeBasedInformation(message.message).then((response)=>{
+                    const newMessage = {"message":response,"isUser":false};
+                    setRealTimeMessages(messages=> [...realTimeMessages,message,newMessage]);
+                }
+            ).catch((error)=>{
+                console.log(error);
+            }
+            );
         }
         else{
-            setRealTimeMessages(messages=> [...realTimeMessages,message]);
+            setCondensedMessages(messages=> [...condensedMessages,message]);
+            const knowledgeService = require("../../services/dataNestService");
+            knowledgeService.getFilteredInformation(message.message).then((response)=>{
+                    const newMessage = {"message":response,"isUser":false};
+                    setCondensedMessages(messages=> [...condensedMessages,message,newMessage]);
+                }
+            ).catch((error)=>{
+                    console.log(error);
+                }
+            );
         }
         inputMessageRef.current.value = "";
     }
 
     return(
          <div className="main-page h-screen bg-gray-700 text-white flex justify-between">
-            <KnowledgeSideBar knowledgeList={[{"title":"I have one million dollars","content":"Some content"}]}/>
+            <KnowledgeSideBar knowledgeList={user.knowledge}/>
 
-            <div className="main-page__center h-full relative flex flex-col w-full items-center justify-between py-8">
+            <div className="main-page__center h-full relative flex flex-col w-full items-center justify-between py-8 pt-20">
                 <div className="absolute bg-gray-800 top-0"><div className="title text-xl font-semibold text-gray-100 flex gap-1 justify-center py-2 px-4">
                     <div onClick={()=>{
                         setIsCondensed(true);
