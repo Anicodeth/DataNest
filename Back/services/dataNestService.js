@@ -116,7 +116,7 @@ async function searchKnowledgeBasedInformation(user, query){
     
 
 async function searchNewsKnowledgeBasedInformation(user, query){
-    const toBeProcessed  = promptTemplates.extractKeyword(question);
+    const toBeProcessed  = promptTemplates.extractKeyword(query);
     const keyword = await palmApiRepo.generateText(toBeProcessed);
     const scrapedData = await newsApiRepo.searchNews(keyword);;   
     const filteredNewsData = scrapedData.articles.map((article)=>{
