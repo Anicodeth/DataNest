@@ -15,7 +15,15 @@ const searchApiRepo = require('../data/searchApiRepository')
 
 async function knowledgeBasedRealtimeInformation(user, question){
         const toBeProcessed  = promptTemplates.extractKeyword(question);
-        const keyword = await palmApiRepo.generateText(toBeProcessed);
+        var keyword = await palmApiRepo.generateText(toBeProcessed);
+            try{
+            keyword = keyword[0].candidates[0].output;
+            }
+            catch(err){
+                keyword = question;
+            }
+        
+        
         const scrapedData = await newsApiRepo.searchNews(keyword);;   
         const filteredData = scrapedData.articles.map((article)=>{
             return {
@@ -46,9 +54,15 @@ async function knowledgeBasedRealtimeInformation(user, question){
 
 async function filteredInformation(query){
             const toBeProcessed  = promptTemplates.extractKeyword(query);
-            const keyword = await palmApiRepo.generateText(toBeProcessed);
+            var keyword = await palmApiRepo.generateText(toBeProcessed);
+            try{
+            keyword = keyword[0].candidates[0].output;
+            }
+            catch(err){
+                keyword = query;
+            }
             const scrapedData = await newsApiRepo.searchNews(keyword);
-        
+         
             const filteredData = scrapedData.articles.map((article)=>{
                 return {
                     title: article.title,
@@ -61,9 +75,8 @@ async function filteredInformation(query){
             });
         
             const currentDataPrompt = dataNestHelper.currentData(3000, filteredData);
-            const knowledge = dataNestHelper.prunKnowledge(user.knowledge, 1000);
 
-            const prompt = promptTemplates.searchKnowledgeInferenceTemplate(currentDataPrompt, knowledge, query);
+            const prompt = promptTemplates.searchDataInferenceTemplate(currentDataPrompt);
         
             const summary = await palmApiRepo.generateText(prompt );
             try{
@@ -119,7 +132,14 @@ async function searchKnowledgeBasedInformation(user, query){
 
 async function searchNewsKnowledgeBasedInformation(user, query){
     const toBeProcessed  = promptTemplates.extractKeyword(query);
-    const keyword = await palmApiRepo.generateText(toBeProcessed);
+    var keyword = await palmApiRepo.generateText(toBeProcessed);
+    try{
+        keyword = keyword[0].candidates[0].output;
+        }
+        catch(err){
+            keyword =   query;
+        }
+    
     const scrapedData = await newsApiRepo.searchNews(keyword);;   
     const filteredNewsData = scrapedData.articles.map((article)=>{
         return {
