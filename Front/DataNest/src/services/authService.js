@@ -4,11 +4,21 @@ const api = "https://data-nest.vercel.app";
 const version = "v1";
 
 export const getUserFromLocalStorage = () => {
-    return localStorage.getItem('user');
+  const userDataJSON = localStorage.getItem('user');
+
+  if (userDataJSON) {
+    try {
+      const userData = JSON.parse(userDataJSON);
+      return userData;
+    } catch (error) {
+      return null;
+    }
+  }
+  return null;
 };
 
-export const getTokenFromLocalStorage = () => {
-    return localStorage.getItem('authToken');
+export const gettokenfromlocalstorage = () => {
+    return localstorage.getitem('authtoken');
 };
 
 export const register = async  (credentials) => {
@@ -27,7 +37,7 @@ export const logIn = async (credentials) => {
   return await axios.post(`${api}/api/${version}/user/login`, credentials)
   .then((response) => {
     const { user, token } = response.data;
-    localStorage.setItem('user', user);
+    localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('authToken', token);
     return { user };
   }).catch((error) => {
@@ -44,6 +54,6 @@ export const logout = () => {
     // Clear the JWT token from local storage
     localStorage.removeItem('authToken');
 
-    // Set user authentication status to not authenticated.
+    // TODO: Set user authentication status to not authenticated.
 };
 
