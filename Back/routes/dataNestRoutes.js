@@ -19,7 +19,7 @@ const dataNestController = require('../controllers/dataNestController');
  *         description: Successful response
  */
 
-router.get('/filterinformation/:query', dataNestController.getFilteredInformation);
+router.get('/condensed/:query', dataNestController.getFilteredInformation);
 
 
 module.exports = { router };

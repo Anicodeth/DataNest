@@ -25,10 +25,12 @@ const userSchema = new mongoose.Schema({
       enum: ['user', 'admin'],
       default: 'user'
   },
-  knowledge: [
-    {
-        type: String
-    }
+  knowledge: [{
+    newKnowledge: {
+      _id: mongoose.Schema.Types.ObjectId,
+      type: String,
+      required: true,
+    }}
   ],
 });
 

@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 
 app = express();
 
-
 mongoose
   .connect(
     "mongodb+srv://afmtoday:OlxwPFCF0rLMnA3e@cluster0.edrrjyh.mongodb.net/datanest?retryWrites=true&w=majority"
@@ -23,6 +22,7 @@ app.use(
     preflightContinue: false,
   })
 );
+
 
 
 const swaggerSpec = swaggerJsdoc({
@@ -42,12 +42,14 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Route imports  
 const dataNestRoutes = require("./routes/dataNestRoutes");
 const userRoutes = require("./routes/userRoutes");
+const knowledgeRoutes = require("./routes/knowledgeRoutes");
+
 
 // Route definitions
 VERSION = "v1";
 app.use(`/api/${VERSION}/dataNest`, dataNestRoutes.router);
 app.use(`/api/${VERSION}/user`, userRoutes.router);
-
+app.use(`/api/${VERSION}/knowledge`, knowledgeRoutes.router)
 
 
 
