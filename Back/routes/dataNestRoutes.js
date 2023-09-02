@@ -8,5 +8,7 @@ router.get('/condensed/:query', dataNestController.getFilteredInformation);
 router.get('/knowledgebased/:query', dataNestController.getKnowledgeBasedInformation);
 router.get('/searchbased/:query', dataNestController.getSearchBasedInformation);
 router.get('/searchknowledgebased/:query', dataNestController.getSearchKnowledgeBasedInformation);
+router.get('/searchnewsknowledgebased/:query', dataNestController.getSearchNewsKnowledgeBasedInformation);
+
 
 module.exports = { router };
