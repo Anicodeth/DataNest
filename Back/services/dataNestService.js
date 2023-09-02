@@ -45,7 +45,9 @@ async function knowledgeBasedRealtimeInformation(user, question){
         }
 
 async function filteredInformation(query){
-            const scrapedData = await newsApiRepo.searchNews(query);
+            const toBeProcessed  = promptTemplates.extractKeyword(query);
+            const keyword = await palmApiRepo.generateText(toBeProcessed);
+            const scrapedData = await newsApiRepo.searchNews(keyword);
         
             const filteredData = scrapedData.articles.map((article)=>{
                 return {
