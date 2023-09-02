@@ -23,4 +23,28 @@ async function getKnowledgeBasedInformation(req, res)  {
     }
   }
 
-module.exports = { getFilteredInformation , getKnowledgeBasedInformation};
+async function getSearchBasedInformation(req, res)  {
+    try {
+      const query = req.params.query;
+      const response = await dataNestService.searchBasedInformation(query);
+      res.json({response:response});
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred' });
+    }
+  }
+
+
+
+async function getSearchKnowledgeBasedInformation(req, res)  {
+  try {
+    const query = req.params.query;
+    const response = await dataNestService.searchKnowledgeBasedInformation(req.user, query);
+    res.json({response:response});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+}
+module.exports = { getFilteredInformation , getKnowledgeBasedInformation
+, getSearchBasedInformation, getSearchKnowledgeBasedInformation};
