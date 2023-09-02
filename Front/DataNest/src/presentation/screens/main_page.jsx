@@ -6,7 +6,7 @@ import ChatMessages from "../components/main_page_components/messages_history";
 import {unmountComponentAtNode} from "react-dom";
 import Popup from "../components/main_page_components/popup_box";
 import useUser from "../../services/hooks/useUser";
-import {getKnowledgeBasedInformation} from "../../services/dataNestService";
+import knowledgeService, {getKnowledgeBasedInformation} from "../../services/dataNestService";
 
 export default function MainPage(){
     const [isCondensed, setIsCondensed] = React.useState(true);
@@ -17,13 +17,12 @@ export default function MainPage(){
 
     const user = useUser();
     const addMessage = (message)=>{
-        if(isCondensed){
-            setCondensedMessages(messages=> [...condensedMessages,message]);
+        if(!isCondensed){
+            setRealTimeMessages(messages=> [...realTimeMessages,message]);
             const knowledgeService = require("../../services/dataNestService");
             knowledgeService.getKnowledgeBasedInformation(message.message).then((response)=>{
-                    console.log(response);
                     const newMessage = {"message":response,"isUser":false};
-                    setRealTimeMessages(messages=> [...realTimeMessages,newMessage]);
+                    setRealTimeMessages(messages=> [...realTimeMessages,message,newMessage]);
                 }
             ).catch((error)=>{
                 console.log(error);
@@ -31,7 +30,16 @@ export default function MainPage(){
             );
         }
         else{
-            setRealTimeMessages(messages=> [...realTimeMessages,message]);
+            setCondensedMessages(messages=> [...condensedMessages,message]);
+            const knowledgeService = require("../../services/dataNestService");
+            knowledgeService.getFilteredInformation(message.message).then((response)=>{
+                    const newMessage = {"message":response,"isUser":false};
+                    setCondensedMessages(messages=> [...condensedMessages,message,newMessage]);
+                }
+            ).catch((error)=>{
+                    console.log(error);
+                }
+            );
         }
         inputMessageRef.current.value = "";
     }
