@@ -99,10 +99,9 @@ async function searchKnowledgeBasedInformation(user, query){
 
             const filteredData = await searchApiRepo.getSearchQuery(query);
         
-            const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 2500);
-            const currentNewsDataPrompt = dataNestHelper.currentData(2500, filteredData);
+            const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 3000);
 
-            const prompt = promptTemplates.searchNewsKnowledgeInferenceTemplate(currentDataPrompt, currentNewsDataPrompt, user.knowledge, query);
+            const prompt = promptTemplates.searchKnowledgeInferenceTemplate(currentDataPrompt,  user.knowledge, query);
             const summary = await palmApiRepo.generateText(prompt );
             try{
                 const paragraph = summary[0].candidates[0].output;
@@ -132,9 +131,10 @@ async function searchNewsKnowledgeBasedInformation(user, query){
     });
     const filteredData = await searchApiRepo.getSearchQuery(query);
 
-    const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 3000);
-    
-    const prompt = promptTemplates.searchKnowledgeInferenceTemplate(currentDataPrompt, user.knowledge, query);
+    const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 2500);
+    const currentNewsDataPrompt = dataNestHelper.currentData(2500, filteredNewsData);
+
+    const prompt = promptTemplates.searchNewsKnowledgeInferenceTemplate(currentDataPrompt, currentNewsDataPrompt , user.knowledge, query);
     const summary = await palmApiRepo.generateText(prompt );
     try{
         const paragraph = summary[0].candidates[0].output;
@@ -149,4 +149,5 @@ async function searchNewsKnowledgeBasedInformation(user, query){
 module.exports = { filteredInformation 
                  , knowledgeBasedRealtimeInformation,
                    searchBasedInformation
-                 , searchKnowledgeBasedInformation} ;
+                 , searchKnowledgeBasedInformation,
+                   searchNewsKnowledgeBasedInformation} ;
