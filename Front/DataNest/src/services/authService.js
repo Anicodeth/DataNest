@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 const api = "https://data-nest.vercel.app";
@@ -12,28 +11,20 @@ const getTokenFromLocalStorage = () => {
     return localStorage.getItem('authToken');
 };
 
-
-
-export const signup = async  (credentials) => {
-    try{
-        // credential = { username, email, password }
-
-        const response  = await axios.post(`${api}/api/${version}/user/signup`,
-            {
-                body : credentials
-            }
-            );
-        const { newUser } = response.data;
-        return {"newUser" : newUser };
-
-
-    }catch (error) {
-        // Handle login error (e.g., display an error message).
-        throw Error("SignUp Failed");
-    }
+export const register = async  (credentials) => {
+    return await axios.post(`${api}/api/${version}/user/signup`, credentials)
+    .then((response) => {  
+      const { newUser } = response.data;
+      console.log(response.data);
+      return { newUser };
+    }).
+    catch((error) => {
+      console.log(error);
+      throw new Error("SignUp Failed");
+    })
 }
 
-export const login = async (credentials) => {
+export const logIn = async (credentials) => {
   return await axios.post(`${api}/api/${version}/user/login`, credentials)
   .then((response) => {
     const { user, token } = response.data;
