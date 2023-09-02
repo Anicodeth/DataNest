@@ -4,6 +4,7 @@ import AuthenticationPage from '../../components/authentication/authentication_p
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import useSignIn from '../../../services/hooks/useSignin'
 
 const schema = z.object({
   username: z.string().min(3, { message: "Username must be at least 3 charachters." }),
@@ -12,9 +13,10 @@ const schema = z.object({
 
 const Signin = () => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ resolver: zodResolver(schema) })
+  const { isLoading, isSuccess, error, signIn } = useSignIn()
 
   const handleSignin = (data) => {
-    console.log(data);
+    signIn(data);
   }
 
   return <AuthenticationPage illustration={astronaut_running} pageTitle={'signin'}>
@@ -46,9 +48,12 @@ const Signin = () => {
             />
             { errors.password && <p className="text-red-400">{ errors.password.message }</p>}
           </div>
+          <div className="mb-8">
+        {error && <p className='text-red-400'>{error}</p>}
+      </div>
           <div className="mb-6">
-            <button type='submit' class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 px-6 py-3 rounded-full w-full text-white"> 
-              <p className="font-bold">Sign In</p>
+            <button type='submit' disabled={isLoading} class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 px-6 py-3 rounded-full w-full text-white cursor-pointer"> 
+              <p className="font-bold">{ isLoading ? "Signing In..." : "Sign In" }</p>
             </button>
           </div>
         </form>

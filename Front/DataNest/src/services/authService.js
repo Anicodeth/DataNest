@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-const api = "http://localhost:4000";
+const api = "https://data-nest.vercel.app";
 const version = "v1";
 
 const saveTokenToLocalStorage = (token) => {
@@ -34,18 +34,19 @@ export const signup = async  (credentials) => {
 }
 
 export const login = async (credentials) => {
-    try {
-        const response = await axios.post(`${api}/api/${version}/user/login`, credentials);
-        const { user, token } = response.data;
-        saveTokenToLocalStorage(token);
-
-
-        return {"user": user};
-
-    } catch (error) {
-        // Handle login error (e.g., display an error message).
-        throw Error("Authentication Failed");
+  return await axios.post(`${api}/api/${version}/user/login`, credentials)
+  .then((response) => {
+    const { user, token } = response.data;
+    saveTokenToLocalStorage(token);
+    return { user };
+  }).catch((error) => {
+    if (error.response && error.response.status === 401) {
+      throw new Error("Invalid username or password. Please try again.");
+    } else {
+      console.error(error);
+      throw new Error("Authentication Failed");
     }
+  })
 };
 
 export const logout = () => {
