@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { login } from "../authService"
+import { useState } from "react"
+import { logIn } from "../authService"
 
 // credentials is an object in the format { username: string, password: string }
 const useSignIn = () => {
@@ -11,7 +11,7 @@ const useSignIn = () => {
     setError(false)
     setLoading(true)
 
-    await login(credentials)
+    await logIn(credentials)
     .then((res) => {
       setLoading(false)
       setSuccess(true)
