@@ -4,14 +4,14 @@ import AuthenticationPage from '../../components/authentication/authentication_p
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import useSignIn from '../../../services/hooks/useSignin'
+import useSignIn from '../../../services/hooks/useSignIn'
 
 const schema = z.object({
   username: z.string().min(3, { message: "Username must be at least 3 charachters." }),
   password: z.string().min(6, { message: "Password must be at least 6 charachters." })
 })
 
-const Signin = () => {
+const SignIn = () => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ resolver: zodResolver(schema) })
   const { isLoading, isSuccess, error, signIn } = useSignIn()
 
@@ -20,6 +20,7 @@ const Signin = () => {
   }
 
   return <AuthenticationPage illustration={astronaut_running} pageTitle={'signin'}>
+    <>
         <h1 className="text-3xl font-semibold mb-20 text-violet-600">Sign in to DataNest.</h1>
         <form className="w-full max-w-md flex flex-col gap-4" onSubmit={handleSubmit(handleSignin)}>
           <div className="mb-4 flex flex-col gap-2">
@@ -57,7 +58,8 @@ const Signin = () => {
             </button>
           </div>
         </form>
+        </>
     </AuthenticationPage>  
 }
 
-export default Signin
+export default SignIn
