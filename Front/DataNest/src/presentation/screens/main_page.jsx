@@ -11,6 +11,7 @@ export default function MainPage(){
     const [condensedMessages, setCondensedMessages ] = React.useState([{"message":"Should I invest in bitcoin?","isUser":true},{"message":"You should not.","isUser":false}]);
     const [realTimeMessages, setRealTimeMessages ] = React.useState([{"message":"Should I get a girlfriend? Use your knowledge.","isUser":true},{"message":"You should not.","isUser":false}]);
     const inputMessageRef = useRef(null);
+    const [userInfo, setUserInfo] = React.useState(null);
 
     const addMessage = (message)=>{
         if(isCondensed){
