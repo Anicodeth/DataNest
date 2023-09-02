@@ -20,4 +20,17 @@ const prunKnowledge = (knowledge, size = 2000)=>{
     })
     return prunedKnowledge;
 }
-module.exports = { currentData, prunKnowledge };
+
+const prunSearch = (search, size = 2000)=>{
+    var prunedSearch = "";
+    var prunSearch = 0;
+    search.forEach((concept)=>{
+        if (prunedSearch.length > size) return ; 
+        prunedSearch += "search " + prunSearch + "\n" + concept  + " \n \n";
+    }
+    )
+    return prunedSearch;
+}
+
+module.exports = { currentData, prunKnowledge,  
+    prunSearch};

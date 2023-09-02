@@ -3,7 +3,7 @@ const palmApiRepo = require('../data/palmApiRepository')
 const dataNestHelper = require('../helpers/dataNestHelpers')
 const promptTemplates = require('../promptTemplates/dataInferenceTemplate')
 const keywordExtractor = require('../nlpModels/keywordExtraction')
-
+const searchApiRepo = require('../data/searchApiRepository')
 
 //template for main processes
 // newsApiRepo.getTopHeadlines().then((response)=>{
@@ -59,8 +59,9 @@ async function filteredInformation(query){
             });
         
             const currentDataPrompt = dataNestHelper.currentData(3000, filteredData);
-        
-            const prompt = promptTemplates.scrapedDataInferenceTemplate(currentDataPrompt);
+            const knowledge = dataNestHelper.prunKnowledge(user.knowledge, 1000);
+
+            const prompt = promptTemplates.searchKnowledgeInferenceTemplate(currentDataPrompt, knowledge, query);
         
             const summary = await palmApiRepo.generateText(prompt );
             try{
@@ -75,6 +76,45 @@ async function filteredInformation(query){
             }
 
 
+async function searchBasedInformation(query){
+
+                const filteredData = await searchApiRepo.getSearchQuery(query);
+            
+                const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 3000);
+             
+                const prompt = promptTemplates.searchDataInferenceTemplate(currentDataPrompt);
+                 const summary = await palmApiRepo.generateText(prompt );
+                try{
+                    const paragraph = summary[0].candidates[0].output;
+                    return  paragraph;
+            
+                }catch(err){  
+                    return "No Information due to " + summary[0].filters[0].reason + " Protocol ";   
+                }    
+            
+        }
+    
+
+async function searchKnowledgeBasedInformation(user, query){
+
+            const filteredData = await searchApiRepo.getSearchQuery(query);
+        
+            const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 3000);
+         
+            const prompt = promptTemplates.searchKnowledgeInferenceTemplate(currentDataPrompt, user.knowledge, query);
+            const summary = await palmApiRepo.generateText(prompt );
+            try{
+                const paragraph = summary[0].candidates[0].output;
+                return  paragraph;
+        
+            }catch(err){  
+                return "No Information due to " + summary[0].filters[0].reason + " Protocol ";   
+            }    
+        
+    }
+ 
 
 module.exports = { filteredInformation 
-    , knowledgeBasedRealtimeInformation} ;
+                 , knowledgeBasedRealtimeInformation,
+                   searchBasedInformation
+                 , searchKnowledgeBasedInformation} ;
