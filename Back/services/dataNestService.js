@@ -99,9 +99,10 @@ async function searchKnowledgeBasedInformation(user, query){
 
             const filteredData = await searchApiRepo.getSearchQuery(query);
         
-            const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 3000);
-         
-            const prompt = promptTemplates.searchKnowledgeInferenceTemplate(currentDataPrompt, user.knowledge, query);
+            const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 2500);
+            const currentNewsDataPrompt = dataNestHelper.currentData(2500, filteredData);
+
+            const prompt = promptTemplates.searchNewsKnowledgeInferenceTemplate(currentDataPrompt, currentNewsDataPrompt, user.knowledge, query);
             const summary = await palmApiRepo.generateText(prompt );
             try{
                 const paragraph = summary[0].candidates[0].output;
@@ -112,7 +113,38 @@ async function searchKnowledgeBasedInformation(user, query){
             }    
         
     }
- 
+
+    
+
+async function searchNewsKnowledgeBasedInformation(user, query){
+    const toBeProcessed  = promptTemplates.extractKeyword(question);
+    const keyword = await palmApiRepo.generateText(toBeProcessed);
+    const scrapedData = await newsApiRepo.searchNews(keyword);;   
+    const filteredNewsData = scrapedData.articles.map((article)=>{
+        return {
+            title: article.title,
+            description: article.description,
+            url: article.url,
+            source: article.source.name,
+            urlToImage: article.urlToImage,
+            content: article.content
+        }
+    });
+    const filteredData = await searchApiRepo.getSearchQuery(query);
+
+    const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 3000);
+    
+    const prompt = promptTemplates.searchKnowledgeInferenceTemplate(currentDataPrompt, user.knowledge, query);
+    const summary = await palmApiRepo.generateText(prompt );
+    try{
+        const paragraph = summary[0].candidates[0].output;
+        return  paragraph;
+
+    }catch(err){  
+        return "No Information due to " + summary[0].filters[0].reason + " Protocol ";   
+    }    
+
+}
 
 module.exports = { filteredInformation 
                  , knowledgeBasedRealtimeInformation,
