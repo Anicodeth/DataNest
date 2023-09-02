@@ -12,6 +12,27 @@ const getTokenFromLocalStorage = () => {
     return localStorage.getItem('authToken');
 };
 
+
+
+export const signup = async  (credentials) => {
+    try{
+        // credential = { username, email, password }
+
+        const response  = await axios.post(`${api}/api/${version}/user/signup`,
+            {
+                body : credentials
+            }
+            );
+        const { newUser } = response.data;
+        return {"newUser" : newUser };
+
+
+    }catch (error) {
+        // Handle login error (e.g., display an error message).
+        throw Error("SignUp Failed");
+    }
+}
+
 export const login = async (credentials) => {
     try {
         const response = await axios.post(`${api}/api/${version}/user/login`, credentials);
@@ -33,5 +54,8 @@ export const logout = () => {
 
     // Set user authentication status to not authenticated.
 };
+
+
+
 
 
