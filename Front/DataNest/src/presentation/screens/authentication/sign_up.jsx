@@ -5,6 +5,7 @@ import astronaut_achieving from '../../../assets/astronaut_achieving.mp4';
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import useSignUp from '../../../services/hooks/useSignUp';
 
 const schema = z.object({
   username: z.string().min(3, { message: "Username must be at least 3 charachters." }),
@@ -12,15 +13,17 @@ const schema = z.object({
   password: z.string().min(6, { message: "Password must be at least 6 charachters." })
 })
 
-const Signup = () => {
+const SignUp = () => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({ resolver: zodResolver(schema) })
+  const { isLoading, isSuccess, error, signUp } = useSignUp()
 
   const handleSignup = (data) => {
-    console.log(data);
+    signUp(data)
   }
 
   return (
     <AuthenticationPage illustration={astronaut_achieving} pageTitle={'Signup'}>
+      <>
         <h1 className="text-3xl font-semibold mb-20 text-violet-600">Create an Account with us.</h1>
         <form className="w-full max-w-md flex flex-col gap-4" onSubmit={handleSubmit(handleSignup)}>
           <div className="mb-4 flex flex-col gap-2">
@@ -62,15 +65,19 @@ const Signup = () => {
             />
             { errors.password && <p className="text-red-400">{ errors.password.message }</p>}
           </div>
+        <div className="mb-8">
+          { error && <p className="text-red-400">{ error }</p>}
+        </div>
           <div className="mb-6">
-            <button class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 px-6 py-3 rounded-full w-full text-white"> 
-              <p className="font-bold">Sign Up</p>
+            <button class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 px-6 py-3 rounded-full w-full text-white" disabled={isLoading}> 
+              <p className="font-bold">{ isLoading ? "Signing Up..." : "Sign Up" }</p>
             </button>
           </div>
         </form>
+        </>
     </AuthenticationPage>
   );
 };
 
-export default Signup;
+export default SignUp;
 
