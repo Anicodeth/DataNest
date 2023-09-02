@@ -1,5 +1,5 @@
 const config = {
-    apiEndpoint: "http://localhost:4000",
+    apiEndpoint: "https://data-nest.vercel.app",
     version: "v1",
 };
 
