@@ -2,10 +2,10 @@ const knowledgeService = require('../services/knowledgeService');
 
 const addKnowledge = async (req, res) => {
     try {
-      const { newKnowledge } = req.body;
-      const user = req.user;
+        const { newKnowledge } = req.body;
+        const user = req.user;
 
-        const knowledge = await knowledgeService.addKnowledge(user, newKnowledge);
+        await knowledgeService.addKnowledge(user, newKnowledge);
         return res.status(200).json({ newKnowledge , message: "Added Successfully"});
     } catch (error) {
       return res.status(500).json({ error: error.message });

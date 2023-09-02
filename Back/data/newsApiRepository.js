@@ -13,6 +13,7 @@ function searchNews(query = 'bitcoin', page = 1) {
   return newsapi.v2.everything({
     q: query,
     page: page,
+    sources: 'bbc-news, cnn, abc-news'
   });
 }
 

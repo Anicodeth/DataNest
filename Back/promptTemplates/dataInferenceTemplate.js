@@ -18,8 +18,20 @@ const knowledgeInferenceTemplate = (currentData, knowledge, prompt)=>{
     And knowledge (found in quotes):
     "${knowledge}".
 
-    Answer the following question: "${prompt}"
+    And additional information that you know:
+
+    Answer the following question: "${prompt}" .
+    
+    if the given data was not enough to answer the question, then use your personal knowledge to answer the question.
     `
 }
 
-module.exports = { scrapedDataInferenceTemplate, knowledgeInferenceTemplate }
+const  extractKeyword = (query) => {
+    return `
+    return one word that best describes the following query: "${query}",
+    return only the word.
+    `
+}
+
+
+module.exports = { scrapedDataInferenceTemplate, knowledgeInferenceTemplate , extractKeyword }

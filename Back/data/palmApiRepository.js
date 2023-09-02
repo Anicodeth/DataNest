@@ -7,7 +7,7 @@ function generateText(promptString, stopSequences = []) {
   
     return client.generateText({
       model: palmApiConfig.MODEL_NAME,
-      temperature: 0.7,
+      temperature: 0.9,
       candidateCount: 1,
       top_k: 40,
       top_p: 0.95,
