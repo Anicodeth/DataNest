@@ -2,16 +2,7 @@ const newsApiRepo = require('../data/newsApiRepository')
 const palmApiRepo = require('../data/palmApiRepository')
 const dataNestHelper = require('../helpers/dataNestHelpers')
 const promptTemplates = require('../promptTemplates/dataInferenceTemplate')
-const keywordExtractor = require('../nlpModels/keywordExtraction')
 const searchApiRepo = require('../data/searchApiRepository')
-
-//template for main processes
-// newsApiRepo.getTopHeadlines().then((response)=>{
-//     console.log(response)
-// })
-// palmApiRepo.generateText("tell me about chickens").then((response)=>{
-//     console.log(JSON.stringify(response, null, 2))
-// })
 
 async function knowledgeBasedRealtimeInformation(user, question){
         const toBeProcessed  = promptTemplates.extractKeyword(question);
@@ -48,7 +39,7 @@ async function knowledgeBasedRealtimeInformation(user, question){
     
         }catch(err){
             return "No Information due to " + summary[0].filters[0].reason + " Protocol ";   
-        }    
+          }    
     
         }
 
@@ -88,7 +79,7 @@ async function filteredInformation(query){
                 return "No Information due to " + summary[0].filters[0].reason + " Protocol ";   
             }    
         
-            }
+        }
 
 
 async function searchBasedInformation(query){
@@ -106,9 +97,7 @@ async function searchBasedInformation(query){
                 }catch(err){  
                     return "No Information due to " + summary[0].filters[0].reason + " Protocol ";   
                 }    
-            
         }
-    
 
 async function searchKnowledgeBasedInformation(user, query){
 
@@ -125,10 +114,8 @@ async function searchKnowledgeBasedInformation(user, query){
         
             }catch(err){  
                 return "No Information due to " + summary[0].filters[0].reason + " Protocol ";   
-            }    
-        
+            }       
     }
-
     
 
 async function searchNewsKnowledgeBasedInformation(user, query){
