@@ -62,8 +62,27 @@ const searchKnowledgeInferenceTemplate = (currentData, knowledge, prompt)=>{
     `
 }
 
+const searchNewsKnowledgeInferenceTemplate = (currentData, currentNews, knowledge, prompt)=>{
+    return `
+    Based on the given google search data (found in quotes):
+    "${currentData}".
+
+    And knowledge (found in quotes):
+    "${knowledge}".
+
+    And News data (found in quotes):
+    "${currentNews}".
+
+    And additional information that you know:
+
+    Answer the following question: "${prompt}" .
+    
+    if the given data was not enough to answer the question, then use your personal knowledge to answer the question.
+    `
+}
 module.exports = { scrapedDataInferenceTemplate, 
     knowledgeInferenceTemplate , 
     extractKeyword,
     searchDataInferenceTemplate,
-    searchKnowledgeInferenceTemplate}
+    searchKnowledgeInferenceTemplate,
+    searchNewsKnowledgeInferenceTemplate}

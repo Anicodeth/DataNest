@@ -23,10 +23,6 @@ app.use(
   })
 );
 
-
-
-
-
 // Route imports  
 const dataNestRoutes = require("./routes/dataNestRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -51,8 +47,6 @@ VERSION = "v1";
 app.use(`/api/${VERSION}/dataNest`, dataNestRoutes.router);
 app.use(`/api/${VERSION}/user`, userRoutes.router);
 app.use(`/api/${VERSION}/knowledge`, knowledgeRoutes.router)
-
-
 
 app.listen(process.env.PORT || 4000, () => {
   console.log(`Server is running on port: ${process.env.PORT || 4000}`);
