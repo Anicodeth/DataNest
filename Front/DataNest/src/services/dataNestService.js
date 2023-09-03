@@ -1,13 +1,10 @@
-
+// src/service/knowledgeService.js
 
 import axios from 'axios';
-
 import config from './config';
 
 const api = config.apiEndpoint;
 const version = config.version;
-
-
 
 // Function to retrieve filtered information based on a query
 export const getFilteredInformation = async (query) => {
@@ -29,9 +26,6 @@ export const getFilteredInformation = async (query) => {
     }
 };
 
-
-
-
 // Function to retrieve knowledge-based realtime information based on a query
 export const getKnowledgeBasedInformation = async (query) => {
     try {
@@ -43,6 +37,66 @@ export const getKnowledgeBasedInformation = async (query) => {
         const response = await axios.get(`${api}/api/${version}/dataNest/knowledgebased/${query}`, {
             headers: {
                 Authorization: `Bearer ${token}`, // Set the Authorization header with the token
+            },
+        });
+
+        return response.data.response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Function to retrieve filtered information based on a search query
+export const getSearchBasedInformation = async (query) => {
+    try {
+        const token = localStorage.getItem('authToken'); // Retrieve the JWT token from local storage
+        if (!token) {
+            throw new Error('Authentication token not found. Please log in.');
+        }
+
+        const response = await axios.get(`${api}/api/${version}/dataNest/searchbased/${query}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data.response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Function to retrieve knowledge-based realtime information based on a search query
+export const getSearchKnowledgeBasedInformation = async (query) => {
+    try {
+        const token = localStorage.getItem('authToken'); // Retrieve the JWT token from local storage
+        if (!token) {
+            throw new Error('Authentication token not found. Please log in.');
+        }
+
+        const response = await axios.get(`${api}/api/${version}/dataNest/searchknowledgebased/${query}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data.response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Function to retrieve knowledge-based realtime information based on a search query and news
+export const getSearchNewsKnowledgeBasedInformation = async (query) => {
+    try {
+        const token = localStorage.getItem('authToken'); // Retrieve the JWT token from local storage
+        if (!token) {
+            throw new Error('Authentication token not found. Please log in.');
+        }
+
+        const response = await axios.get(`${api}/api/${version}/dataNest/searchnewsknowledgebased/${query}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
             },
         });
 
