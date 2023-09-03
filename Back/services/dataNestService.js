@@ -137,7 +137,7 @@ async function searchNewsKnowledgeBasedInformation(user, query){
         keyword = keyword[0].candidates[0].output;
         }
         catch(err){
-            keyword =   query;
+            keyword = query;
         }
     
     const scrapedData = await newsApiRepo.searchNews(keyword);;   
