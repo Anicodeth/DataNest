@@ -48,7 +48,7 @@ const DashBoard = ()=>{
                         <h1>Welcome to Data-Nest</h1>
                         <p>Your AI Data Hub for Discovery and Innovation</p>
                         <p>Unlock the power of data for your artificial intelligence projects.</p>
-                        <button class="btn">Get Started</button>
+                        <button onClick={()=>{history('/sign_up')}} class="get_started_btn">Get Started</button>
                     </div>
                     <div class="heroimageContainer">
                         <img class="handimage " src={handImage} data-aos="fade-up" alt=""/>

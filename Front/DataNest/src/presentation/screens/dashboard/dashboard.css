@@ -76,6 +76,7 @@ nav a{
     box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     border: none;
+    filter: drop-shadow(0 0 2px cyan);
 }
 .signinbtn:hover{
     filter: drop-shadow(0 0 5px cyan);
@@ -129,7 +130,7 @@ nav a{
     }
 }
 
-.btn {
+.get_started_btn {
     --color: #07b3d1;
     --color2: rgb(10, 25, 30);
     padding: 0.8em 1.75em;
@@ -149,11 +150,11 @@ nav a{
     margin: 14px;
 }
 
-.btn:hover{
+.get_started_btn:hover{
     filter: drop-shadow(0 0 5px cyan);
 }
 
-.btn::after, .btn::before {
+.get_started_btn::after, .get_started_btn::before {
     content: '';
     display: block;
     height: 100%;
@@ -167,25 +168,25 @@ nav a{
     background-color: var(--color);
 }
 
-.btn::before {
+.get_started_btn::before {
     top: -50%;
     left: -25%;
     transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
 }
 
-.btn:hover::before {
+.get_started_btn:hover::before {
     transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
 }
 
-.btn:hover::after {
+.get_started_btn:hover::after {
     transform: skew(45deg) translate(-50%, -50%);
 }
 
-.btn:hover {
+.get_started_btn:hover {
     color: var(--color2);
 }
 
-.btn:active {
+.get_started_btn:active {
     filter: brightness(.7);
     transform: scale(.98);
 }
@@ -338,7 +339,8 @@ nav a{
 
 .cards_section{
     width: 100%;
-    font-family: 'League Spartan', sans-serif
+    font-family: 'League Spartan', sans-serif;
+    padding-bottom: 70px;
 }
 
 .cards_section .title_container{
