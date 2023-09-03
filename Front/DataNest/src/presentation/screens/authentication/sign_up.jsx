@@ -14,6 +14,7 @@ import InputField from '../../components/authentication/input_form';
 import Button from '../../components/authentication/button';
 import ErrorMessage from '../../components/authentication/error_message';
 import SuccessMessage from '../../components/authentication/success_message';
+import Spinner from '../../components/ui/spinner/spinner';
 
 const schema = z.object({
   username: z.string().min(3, { message: "Username must be at least 3 charachters." }),

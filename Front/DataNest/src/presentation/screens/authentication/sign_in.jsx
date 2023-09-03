@@ -33,7 +33,7 @@ const SignIn = () => {
 
   return <AuthenticationPage illustration={astronaut_running} pageTitle={'signin'}>
     <>
-      <h1 className="text-3xl font-semibold mb-10 text-violet-600">Sign in to LimitlessAi.</h1>
+      <h1 className="text-3xl font-semibold mb-10 text-[#4810d5]">Sign in to LimitlessAi.</h1>
       <form className="w-full max-w-md flex flex-col gap-4 mb-10" onSubmit={handleSubmit(handleSignin)}>
 
         <InputField
