@@ -59,6 +59,8 @@ async function getSearchNewsKnowledgeBasedInformation(req, res)  {
 }
 
 
-module.exports = { getFilteredInformation , getKnowledgeBasedInformation
-, getSearchBasedInformation, getSearchKnowledgeBasedInformation,
-getSearchNewsKnowledgeBasedInformation};
+module.exports = { getFilteredInformation , 
+                   getKnowledgeBasedInformation,
+                   getSearchBasedInformation, 
+                   getSearchKnowledgeBasedInformation,
+                   getSearchNewsKnowledgeBasedInformation};

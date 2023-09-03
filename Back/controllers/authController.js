@@ -16,7 +16,7 @@ async function signUp(req, res) {
   }
 
 
-  async function login(req, res) {
+async function login(req, res) {
     
     try {
       const { username, password } = req.body;
