@@ -28,7 +28,7 @@ const DashBoard = ()=>{
             <div class="header">
                 <div class="logo-container">
                     <img src={logo} alt="logo alternate" />
-                    <h3 className="font-Ubuntu">Data Nest</h3>
+                    <h3 className="font-Ubuntu">Limitless</h3>
                 </div>
                 <nav>
                     <ul>
@@ -45,7 +45,7 @@ const DashBoard = ()=>{
             <div class="main">
                 <section class="herosection">
                     <div class="herodiscription" data-aos="fade-right">
-                        <h1>Welcome to Data-Nest</h1>
+                        <h1>Welcome to Limitless</h1>
                         <p>Your AI Data Hub for Discovery and Innovation</p>
                         <p>Unlock the power of data for your artificial intelligence projects.</p>
                         <button onClick={()=>{history('/sign_up')}} class="get_started_btn">Get Started</button>
@@ -73,7 +73,7 @@ const DashBoard = ()=>{
                 </section>
                 <section class="cards_section">
                     <div class="title_container">
-                        <h2>Discover the power of Datanest, your source for real-time intelligence and AI-driven insights.</h2>
+                        <h2>Discover the power of Limitless, your source for real-time intelligence and AI-driven insights.</h2>
                         <p>With our platform, you can access instant real-time data, receive personalized recommendations, and leverage predictive analytics. Explore our offerings and redefine the way you make informed decisions. Here are three cards showcasing Datanest's transformative capabilities.</p>
                     </div>
                     <div class="cards_container" data-aos="fade-up">
