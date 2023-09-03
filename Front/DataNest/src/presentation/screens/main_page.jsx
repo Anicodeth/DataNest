@@ -54,12 +54,12 @@ export default function MainPage(){
             <KnowledgeSideBar knowledgeList={user.knowledge}/>
 
             <div className="main-page__center h-full relative flex flex-col w-full items-center justify-between py-8 pt-20">
-                <div className="toggler absolute bg-gray-800 top-0 rounded-full my-2"><div className="title text-xl font-semibold text-gray-100 flex gap-1 justify-center py-2 px-4">
+                <div className="toggler absolute top-0 rounded-full my-2"><div className="title text-xl font-semibold text-gray-100 flex gap-1 justify-center py-2 px-4">
                     <div onClick={()=>{
                         setIsCondensed(true);
                     }}
-                        className={`py-1 cursor-pointer px-4  transition delay-50 ${
-                            isCondensed ? "bg-gray-200 text-gray-800 rounded-full" : ""
+                        className={`py-1 cursor-pointer px-4  rounded-full transition delay-50 ${
+                            isCondensed ? "toggler-selected" : ""
                         }`}
                     >
                         Condensed
@@ -68,9 +68,9 @@ export default function MainPage(){
                         setIsCondensed(false);
                     }
                     }
-                        className={`py-1 cursor-pointer px-4  transition delay-50 ${
-                            !isCondensed ? "bg-gray-200 text-gray-800 rounded-full" : ""
-                        }`}
+                         className={`py-1 cursor-pointer px-4  rounded-full transition delay-50 ${
+                             !isCondensed ? "toggler-selected" : ""
+                         }`}
                     >
                         Real Time
                     </div>
@@ -88,7 +88,7 @@ export default function MainPage(){
                              }}
             disabled={isLoading}
                         />
-                        <button className="font-medium text-xl bg-gray-800 px-5 flex flex-col items-center justify-center" onClick={()=>{
+                        <button className="send-btn font-medium text-xl bg-gray-800 px-5 flex flex-col items-center justify-center" onClick={()=>{
                             addMessage({"message":inputMessageRef.current.value,"isUser":true});
                         }} disabled={isLoading}>
             { isLoading ? "Sending..." : "Send" }

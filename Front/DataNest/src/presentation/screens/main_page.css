@@ -2,9 +2,10 @@
     background: linear-gradient(to right, rgb(18, 31, 45), rgba(6, 9, 26, 0.8));
 }
 
-.toggler{
-    background: rgba(130,130,130,0.8);
-}
+/*.toggler{*/
+/*    background: rgba(130,130,130,0.8);*/
+/*    color: black;*/
+/*}*/
 
 .main-page input{
     background-color: rgba(100,100,100,0.8);
@@ -21,4 +22,19 @@
 
 .knowledge-side-bar__content{
     background-color: rgba(150,150,150,0.5);
+}
+
+.toggler{
+    color: white;
+    background-color: rgba(0,0,0,0);
+}
+
+.toggler-selected{
+    background-color: rgba(100,100,100,0.8);
+    /*color: black;*/
+}
+
+.send-btn{
+    background-color: rgba(20,20,180,0.8);
+    color: white;
 }
