@@ -52,7 +52,7 @@ nav ul li a:hover + span{
     width: 100%;
 }
 
-a{
+nav a{
     text-decoration: none;
     color: white;
 }
@@ -61,16 +61,16 @@ a{
     color: white;
 }
 
-button{
-    outline: none;
-    border: 1px solid white;
-    color: white;
-    background-color: transparent;
-    padding: 5px 10px;
-    font-size: large;
-    border-radius: 5px;
-    cursor: pointer;
-}
+/*button{*/
+/*    outline: none;*/
+/*    border: 1px solid white;*/
+/*    color: white;*/
+/*    background-color: transparent;*/
+/*    padding: 5px 10px;*/
+/*    font-size: large;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*}*/
 .btn {
     --color: #07b3d1;
     --color2: rgb(10, 25, 30);

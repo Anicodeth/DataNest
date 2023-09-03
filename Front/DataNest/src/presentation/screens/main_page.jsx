@@ -9,6 +9,8 @@ import useUser from "../../services/hooks/useUser";
 import knowledgeService, {getKnowledgeBasedInformation} from "../../services/dataNestService";
 import { useGetKnowledge } from "../../services/hooks/useGetKnowledge";
 import LoadingRipples from "../components/ui/loading_ripples/loading_ripples";
+import "./main_page.css";
+
 
 export default function MainPage(){
     const [isCondensed, setIsCondensed] = React.useState(true);
@@ -52,7 +54,7 @@ export default function MainPage(){
             <KnowledgeSideBar knowledgeList={user.knowledge}/>
 
             <div className="main-page__center h-full relative flex flex-col w-full items-center justify-between py-8 pt-20">
-                <div className="absolute bg-gray-800 top-0 rounded-full my-2"><div className="title text-xl font-semibold text-gray-100 flex gap-1 justify-center py-2 px-4">
+                <div className="toggler absolute bg-gray-800 top-0 rounded-full my-2"><div className="title text-xl font-semibold text-gray-100 flex gap-1 justify-center py-2 px-4">
                     <div onClick={()=>{
                         setIsCondensed(true);
                     }}
