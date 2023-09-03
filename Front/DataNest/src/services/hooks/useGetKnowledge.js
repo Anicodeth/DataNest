@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getKnowledgeBasedInformation, getFilteredInformation } from "../dataNestService";
+import { getSearchKnowledgeBasedInformation, getSearchNewsKnowledgeBasedInformation } from "../dataNestService";
 
 export const useGetKnowledge = () => {
   const [ isLoading, setLoading ] = useState(false);
@@ -7,7 +7,7 @@ export const useGetKnowledge = () => {
   const getKnowledgeBased = async (message) => {
     setLoading(true);
 
-    return await getKnowledgeBasedInformation(message)
+    return await getSearchNewsKnowledgeBasedInformation(message)
     .then((response)=>{
       setLoading(false);
       return response;
@@ -21,7 +21,7 @@ export const useGetKnowledge = () => {
   const getFiltered = async (message) => {
     setLoading(true);
 
-    return await getFilteredInformation(message)
+    return await getSearchKnowledgeBasedInformation(message)
     .then((response)=>{
       setLoading(false);
       return response;
