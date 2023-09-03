@@ -1,6 +1,6 @@
 import AOS from "aos"
 import "aos/dist/aos.css"
-
+import { useNavigate } from 'react-router-dom';
 
 import "./dashboard.css"
 import logo from "../../../assets/dashboard/logo.png"
@@ -21,6 +21,8 @@ const DashBoard = ()=>{
         AOS.init({duration: 2000})
     }, []);
 
+    const history = useNavigate();
+
     return (
         <>
             <div class="header">
@@ -35,9 +37,9 @@ const DashBoard = ()=>{
                         <li><a href="">Contact</a> <span></span></li>
                     </ul>
                 </nav>
-                <div>
-                    <button style={{marginRight: "10px"}}>Login</button>
-                    <button>Sign up</button>
+                <div style={{display:"flex", gap:"10px"}}>
+                    <button class="signinbtn" onClick={()=>{history("/sign_in")}} style={{marginRight: "10px"}}><span>Login</span></button>
+                    <button class="signinbtn" onClick={()=>{history("sign_up")}}><span>Sign up</span></button>
                 </div>
             </div>
             <div class="main">

@@ -48,11 +48,15 @@ nav ul li span{
     transition: width 0.3s ease-in-out;
 }
 
+nav ul li a:hover{
+    text-shadow: 0 0 10px cyan;
+}
+
 nav ul li a:hover + span{
     width: 100%;
 }
 
-a{
+nav a{
     text-decoration: none;
     color: white;
 }
@@ -61,16 +65,70 @@ a{
     color: white;
 }
 
-button{
-    outline: none;
-    border: 1px solid white;
-    color: white;
-    background-color: transparent;
-    padding: 5px 10px;
-    font-size: large;
+.signinbtn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px;
-    cursor: pointer;
+    background: #183153;
+    font-family: "Montserrat", sans-serif;
+    box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    border: none;
 }
+.signinbtn:hover{
+    filter: drop-shadow(0 0 5px cyan);
+}
+
+.signinbtn:after {
+    content: " ";
+    width: 0;
+    height: 100%;
+    background: #05d4ef;
+    position: absolute;
+    transition: all 0.4s ease-in-out;
+    right: 0;
+}
+
+.signinbtn:hover::after {
+    right: auto;
+    left: 0;
+    width: 100%;
+}
+
+.signinbtn span {
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    padding: 5px 10px;
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    z-index: 20;
+    transition: all 0.3s ease-in-out;
+}
+
+.signinbtn:hover span {
+    color: black;
+    animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
 .btn {
     --color: #07b3d1;
     --color2: rgb(10, 25, 30);
@@ -88,6 +146,11 @@ button{
     font-family: 'Roboto', 'Segoe UI', sans-serif;
     text-transform: uppercase;
     color: var(--color);
+    margin: 14px;
+}
+
+.btn:hover{
+    filter: drop-shadow(0 0 5px cyan);
 }
 
 .btn::after, .btn::before {
@@ -145,11 +208,14 @@ button{
     color: white;
     padding-left: 20%;
     text-align: center;
-    font-family: 'Ubuntu', sans-serif;
 }
 .herodiscription h1{
     font-size:3rem;
     font-family: 'Ubuntu', sans-serif;
+}
+.herodiscription p{
+    font-family: "Montserrat", sans-serif;
+    font-weight: lighter;
 }
 
 .heroimageContainer{
