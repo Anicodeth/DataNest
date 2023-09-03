@@ -7,19 +7,19 @@ function generateText(promptString, stopSequences = []) {
   
     return client.generateText({
       model: palmApiConfig.MODEL_NAME,
-      temperature: 0.9,
+      temperature: 1,
       candidateCount: 1,
       top_k: 40,
       top_p: 0.95,
       max_output_tokens: 1024,
       stop_sequences: stopSequences,
       safety_settings: [
-        {"category": "HARM_CATEGORY_DEROGATORY", "threshold": 9},
-        {"category": "HARM_CATEGORY_TOXICITY", "threshold": 9},
-        {"category": "HARM_CATEGORY_VIOLENCE", "threshold": 9},
-        {"category": "HARM_CATEGORY_SEXUAL", "threshold": 9},
-        {"category": "HARM_CATEGORY_MEDICAL", "threshold": 9},
-        {"category": "HARM_CATEGORY_DANGEROUS", "threshold": 9}
+        {"category": "HARM_CATEGORY_DEROGATORY", "threshold": 4},
+        {"category": "HARM_CATEGORY_TOXICITY", "threshold": 4},
+        {"category": "HARM_CATEGORY_VIOLENCE", "threshold": 4},
+        {"category": "HARM_CATEGORY_SEXUAL", "threshold": 4},
+        {"category": "HARM_CATEGORY_MEDICAL", "threshold": 4},
+        {"category": "HARM_CATEGORY_DANGEROUS", "threshold": 4}
       ],
       prompt: {
         text: promptString,

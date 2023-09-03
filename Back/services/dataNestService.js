@@ -114,12 +114,13 @@ async function searchKnowledgeBasedInformation(user, query){
 
             const filteredData = await searchApiRepo.getSearchQuery(query);
         
-            const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 3000);
+            const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 2500);
 
             const prompt = promptTemplates.searchKnowledgeInferenceTemplate(currentDataPrompt,  user.knowledge, query);
             const summary = await palmApiRepo.generateText(prompt );
             try{
                 const paragraph = summary[0].candidates[0].output;
+            
                 return  paragraph;
         
             }catch(err){  
@@ -151,10 +152,17 @@ async function searchNewsKnowledgeBasedInformation(user, query){
             content: article.content
         }
     });
-    const filteredData = await searchApiRepo.getSearchQuery(query);
+    const search =  promptTemplates.extractSearch(query);
+    var processedSearch = await palmApiRepo.generateText(search);
+    try{
+        processedSearch = processedSearch[0].candidates[0].output;}
+    catch(err){
+         processedSearch = query;
+    }
+    const filteredData = await searchApiRepo.getSearchQuery(processedSearch);
 
     const currentDataPrompt = dataNestHelper.prunSearch(filteredData, 2500);
-    const currentNewsDataPrompt = dataNestHelper.currentData(2500, filteredNewsData);
+    const currentNewsDataPrompt = dataNestHelper.currentData(1500, filteredNewsData);
 
     const prompt = promptTemplates.searchNewsKnowledgeInferenceTemplate(currentDataPrompt, currentNewsDataPrompt , user.knowledge, query);
     const summary = await palmApiRepo.generateText(prompt );

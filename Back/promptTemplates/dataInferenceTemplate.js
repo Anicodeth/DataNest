@@ -33,6 +33,11 @@ const  extractKeyword = (query) => {
     `
 }
 
+const extractSearch = (query) => {
+    return `
+    Change the following quoted text to it's possible google search alternative: "${query}". make it well condensed and short.
+    `
+}
 
 const searchDataInferenceTemplate = (currentData)=>{
     return `
@@ -85,4 +90,5 @@ module.exports = { scrapedDataInferenceTemplate,
     extractKeyword,
     searchDataInferenceTemplate,
     searchKnowledgeInferenceTemplate,
-    searchNewsKnowledgeInferenceTemplate}
+    searchNewsKnowledgeInferenceTemplate,
+    extractSearch}
