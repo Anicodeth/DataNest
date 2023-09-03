@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const api = "https://data-nest.vercel.app";
-const version = "v1";
+import config from './config';
 
 export const getUserFromLocalStorage = () => {
   const userDataJSON = localStorage.getItem('user');
@@ -22,7 +20,7 @@ export const gettokenfromlocalstorage = () => {
 };
 
 export const register = async  (credentials) => {
-    return await axios.post(`${api}/api/${version}/user/signup`, credentials)
+    return await axios.post(`${config.apiEndpoint}/api/${config.version}/user/signup`, credentials)
     .then((response) => {  
       const { newUser } = response.data;
       return { newUser };
@@ -34,7 +32,7 @@ export const register = async  (credentials) => {
 }
 
 export const logIn = async (credentials) => {
-  return await axios.post(`${api}/api/${version}/user/login`, credentials)
+  return await axios.post(`${config.apiEndpoint}/api/${config.version}/user/login`, credentials)
   .then((response) => {
     const { user, token } = response.data;
     localStorage.setItem('user', JSON.stringify(user));
