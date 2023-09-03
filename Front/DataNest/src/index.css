@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+French+Canon&family=League+Spartan:wght@100;200;300;400;500;600;700;800&family=Montserrat:wght@200;300;600&family=Poppins:wght@300;400&family=Ubuntu:wght@500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,4 +15,37 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+   ::-webkit-scrollbar {
+     width: 0.3rem;
+     height: 0.3rem;
+   }
+
+::-webkit-scrollbar-track {
+  background: #8e8e8e49;
+  border-radius: 100vw;
+  margin-block: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(112, 111, 111);
+  border-radius: 100vw;
+}
+
+body::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: #082661;
+  border-radius: 100vw;
+  margin-block: 0.2rem;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border-radius: 100vw;
+  padding: 0.1rem;
 }
